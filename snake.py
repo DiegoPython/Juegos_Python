@@ -16,13 +16,23 @@ def inside(head):
     "Return True if head inside boundaries."
     return -200 < head.x < 190 and -200 < head.y < 190
 
+def insidy(food):
+    "Return True if food inside boundaries."
+    return -200 < food.x < 190 and -200 < food.y < 190
+
 def move():
     "Move snake forward one segment."
     head = snake[-1].copy()
     head.move(aim)
 
-    if not inside(head) or head in snake:
+    if not inside(food) or head in snake:
         square(head.x, head.y, 9, 'red')
+        update()
+        return
+
+    if not insidy(head):
+        food.x = 0
+        food.y = 0
         update()
         return
 
