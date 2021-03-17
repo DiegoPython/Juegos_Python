@@ -98,6 +98,7 @@ def move():
     if valid(pacman + aim):
         pacman.move(aim)
 
+
     index = offset(pacman)
 
     if tiles[index] == 1:
@@ -135,7 +136,7 @@ def move():
         if abs(pacman - point) < 20:
             return
 
-    ontimer(move, 100)
+    ontimer(move, 10)
 
 def change(x, y):
     "Change pacman aim if valid."
