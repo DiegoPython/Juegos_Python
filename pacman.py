@@ -112,18 +112,48 @@ def move():
     dot(20, 'yellow')
 
     for point, course in ghosts:
-        if valid(point + course):
-            point.move(course)
+
+        move_y = False
+        move_x = False
+
+        #Distancia entre fantasma y pacman
+        pathing = pacman - point
+
+        #Vemos si la distancia en el eje x es mayor a la distancia en el eje y
+        if abs(pathing.x) >= abs(pathing.y):
+
+            #Marcamos el curso en el eje x en la direccion adecuada
+            course = vector(5 * get_sign(pathing.x), 0)
+            move_x = True
+
         else:
-            options = [
-                vector(5, 0),
-                vector(-5, 0),
-                vector(0, 5),
-                vector(0, -5),
-            ]
-            plan = choice(options)
-            course.x = plan.x
-            course.y = plan.y
+
+            #Marcamos el curso en el eje y en la direccion adecuada
+            course = vector(0, 5 * get_sign(pathing.y))
+            move_y = True
+
+        #Si el curso no es valido
+        if not valid(point + course):    
+
+            if move_x:
+
+                #Marcamos el curso en el otro eje
+                course = vector(0, 5 * get_sign(pathing.y))
+
+                #Si no es valido, nos movemos en el mismo eje pero en direccion contraria
+                if not valid(point + course):
+                    course = vector(5 * get_sign(pathing.x) * -1, 0)
+
+            elif move_y:
+
+                #Marcamos el curso en el otro eje
+                course = vector(5 * get_sign(pathing.x), 0)
+
+                #Si no es valido, nos movemos en el mismo eje pero en direccion contraria
+                if not valid(point + course):
+                    course = vector(0, 5 * get_sign(pathing.y) * -1)
+
+        point.move(course)
 
         up()
         goto(point.x + 10, point.y + 10)
@@ -142,6 +172,14 @@ def change(x, y):
     if valid(pacman + vector(x, y)):
         aim.x = x
         aim.y = y
+
+#Funcion que regresa el signo de un numero
+def get_sign(number):
+
+    if number >= 0:
+        return 1
+
+    return -1
 
 setup(420, 420, 370, 0)
 hideturtle()
