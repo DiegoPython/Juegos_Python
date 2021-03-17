@@ -6,6 +6,20 @@ food = vector(0, 0)
 snake = [vector(10, 0)]
 aim = vector(0, -10)
 
+#Colores posibles
+colors = ['blue', 'yellow', 'brown', 'green', 'purple']
+
+s_col = randrange(0, 5, 1)
+f_col = randrange(0, 5, 1)
+
+#Volvemos a randomizar en caso de que ambos numeros sean iguales
+while f_col == s_col:
+    f_col = randrange(0, 5, 1)
+
+#Asignamos el color de la serpiente y la comida
+snake_color = colors[s_col]
+food_color = colors[f_col]
+
 def change(x, y):
     "Change snake direction."
     aim.x = x
@@ -37,9 +51,9 @@ def move():
     clear()
 
     for body in snake:
-        square(body.x, body.y, 9, 'black')
+        square(body.x, body.y, 9, snake_color)
 
-    square(food.x, food.y, 9, 'green')
+    square(food.x, food.y, 9, food_color)
     update()
     ontimer(move, 100)
 
