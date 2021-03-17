@@ -39,14 +39,8 @@ def move():
     head = snake[-1].copy()
     head.move(aim)
 
-    if not inside(food) or head in snake:
+    if not inside(head) or head in snake:
         square(head.x, head.y, 9, 'red')
-        update()
-        return
-
-    if not insidy(head):
-        food.x = 0
-        food.y = 0
         update()
         return
 
@@ -60,6 +54,11 @@ def move():
         snake.pop(0)
         food.x =  food.x + (random.choice([-10, 10, 0]))
         food.y =  food.y + (random.choice([-10, 10, 0]))
+
+    if not insidy(food):
+        food.x = 0
+        food.y = 0
+        update()
 
     clear()
 
