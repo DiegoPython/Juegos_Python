@@ -7,6 +7,17 @@ tiles = list(range(32)) * 2
 state = {'mark': None}
 hide = [True] * 64
 
+class Contador(object):
+
+  def __init__(self, inicial=0):
+    self.numero = inicial
+
+  def siguiente(self):
+    self.numero += 1
+    return self.numero
+
+conttap = Contador()
+
 def square(x, y):
     "Draw white square with black outline at (x, y)."
     up()
@@ -38,7 +49,12 @@ def tap(x, y):
         hide[spot] = False
         hide[mark] = False
         state['mark'] = None
-
+    
+    up()
+    goto(200,200)
+    color('red')
+    write(conttap.siguiente(), font=('Arial', 30, 'normal'))
+    
 def draw():
     "Draw image and tiles."
     clear()
@@ -59,6 +75,7 @@ def draw():
         goto(x + 2, y)
         color('black')
         write(tiles[mark], font=('Arial', 30, 'normal'))
+
 
     update()
     ontimer(draw, 100)
