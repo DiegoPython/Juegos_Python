@@ -6,6 +6,7 @@ car = path('car.gif')
 tiles = list(range(32)) * 2
 state = {'mark': None}
 hide = [True] * 64
+found_pairs = 0
 
 def square(x, y):
     "Draw white square with black outline at (x, y)."
@@ -31,6 +32,7 @@ def tap(x, y):
     "Update mark and hidden tiles based on tap."
     spot = index(x, y)
     mark = state['mark']
+    global found_pairs
 
     if mark is None or mark == spot or tiles[mark] != tiles[spot]:
         state['mark'] = spot
@@ -38,8 +40,10 @@ def tap(x, y):
         hide[spot] = False
         hide[mark] = False
         state['mark'] = None
+        found_pairs = found_pairs + 1
 
 def draw():
+    print(found_pairs)
     "Draw image and tiles."
     clear()
     goto(0, 0)
@@ -59,6 +63,11 @@ def draw():
         goto(x + 2, y)
         color('black')
         write(tiles[mark], font=('Arial', 30, 'normal'))
+
+    if found_pairs == 32:
+        goto(0, 0)
+        color('blue')
+        write('Felicidades, encontraste todas las parejas!', align='center', font=('Arial', 14, 'normal'))
 
     update()
     ontimer(draw, 100)
