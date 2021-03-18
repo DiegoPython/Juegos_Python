@@ -1,8 +1,9 @@
 from turtle import *
 from random import randrange
+import random
 from freegames import square, vector
 
-food = vector(0, 0)
+food = vector(0,0)
 snake = [vector(10, 0)]
 aim = vector(0, -10)
 
@@ -29,6 +30,10 @@ def inside(head):
     "Return True if head inside boundaries."
     return -200 < head.x < 190 and -200 < head.y < 190
 
+def insidy(food):
+    "Return True if food inside boundaries."
+    return -200 < food.x < 190 and -200 < food.y < 190
+
 def move():
     "Move snake forward one segment."
     head = snake[-1].copy()
@@ -43,10 +48,17 @@ def move():
 
     if head == food:
         print('Snake:', len(snake))
-        food.x = randrange(-15, 15) * 10
-        food.y = randrange(-15, 15) * 10
+        food.x = (randrange(-15, 15) * 10) +(random.choice([-10, 10, 0]))
+        food.y = (randrange(-15, 15) * 10) +(random.choice([-10, 10, 0]))
     else:
         snake.pop(0)
+        food.x =  food.x + (random.choice([-10, 10, 0]))
+        food.y =  food.y + (random.choice([-10, 10, 0]))
+
+    if not insidy(food):
+        food.x = 0
+        food.y = 0
+        update()
 
     clear()
 
