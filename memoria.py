@@ -8,6 +8,17 @@ state = {'mark': None}
 hide = [True] * 64
 found_pairs = 0
 
+class Contador(object):
+
+  def __init__(self, inicial=0):
+    self.numero = inicial
+
+  def siguiente(self):
+    self.numero += 1
+    return self.numero
+
+conttap = Contador()
+
 def square(x, y):
     "Draw white square with black outline at (x, y)."
     up()
@@ -41,6 +52,11 @@ def tap(x, y):
         hide[mark] = False
         state['mark'] = None
         found_pairs = found_pairs + 1
+    
+    up()
+    goto(200,200)
+    color('red')
+    write(conttap.siguiente(), font=('Arial', 30, 'normal'))
 
 def draw():
     print(found_pairs)
@@ -70,6 +86,7 @@ def draw():
         goto(0, 0)
         color('blue')
         write('Felicidades, encontraste todas las parejas!', align='center', font=('Arial', 14, 'normal'))
+
 
     update()
     ontimer(draw, 100)
