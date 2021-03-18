@@ -62,7 +62,9 @@ def draw():
         up()
         goto(x + 2, y)
         color('black')
-        write(tiles[mark], font=('Arial', 30, 'normal'))
+        #Reposicionamos nuestro texto
+        goto(x + 25, y)
+        write(tiles[mark], align='center', font=('Arial', 30, 'normal'))
 
     if found_pairs == 32:
         goto(0, 0)
