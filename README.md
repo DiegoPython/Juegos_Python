@@ -3,11 +3,11 @@
 # Descripción 
 
 En este repositorio se encuentra el código en Python de los siguientes juegos:
-- 1. Paint
-- 2. Snake
-- 3. Pacman
-- 4. Tiro parabólico
-- 5. Memoria
+- Print
+- Snake
+- Pacman
+- Tiro parabólico
+- Memoria
 
 Se realizaron cambios en cada juego para que funcionen de una mejor manera. Los archivos de los juegos que se encuentran en este repositorio son las últimas versiones.
 
